@@ -225,6 +225,17 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<image>
+						<buildpacks>
+							<buildpack>gcr.io/paketo-buildpacks/ca-certificates</buildpack>
+							<buildpack>gcr.io/paketo-buildpacks/amazon-corretto</buildpack>
+							<buildpack>gcr.io/paketo-buildpacks/java</buildpack>
+						</buildpacks>
+						<env>
+							<BP_JVM_VERSION>${java.version}</BP_JVM_VERSION>
+						</env>
+						<name>${project.artifactId}:${project.version}</name>
+					</image>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
