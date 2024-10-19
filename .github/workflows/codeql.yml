@@ -1,0 +1,55 @@
+name: CodeQL
+
+on:
+  # When new code is merged
+  push:
+    branches:
+      - main
+      - develop
+    paths-ignore:
+      - "**/README.md"
+      - "**/CONTRIBUTING.md"
+      - "**/CONTRIBUTORS.txt"
+      - '**/CODE_OF_CONDUCT.md'
+      - "**/LICENSE"
+      - "**/CODEOWNERS"
+  # When user pull request
+  pull_request:
+    branches:
+      - main
+      - develop
+    types: [opened, synchronize, reopened]
+  # When user manually triggers
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - java
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Test with Maven
+      run: ./mvnw -T 1C clean test --file pom.xml
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
