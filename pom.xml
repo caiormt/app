@@ -51,6 +51,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<spring-cloud-contract-plugin.version>4.1.4</spring-cloud-contract-plugin.version>
+		<jacoco.version>0.8.12</jacoco.version>
 		<spotless.version>2.43.0</spotless.version>
 
 		<sonar.organization>caiormt</sonar.organization>
@@ -231,6 +232,39 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>**Application.*</exclude>
+						<exclude>**/package-info.**</exclude>
+						<exclude>**/generated-sources/**</exclude>
+						<exclude>**/generated-test-sources/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<formats>
+								<format>XML</format>
+							</formats>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>
