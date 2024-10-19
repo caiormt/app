@@ -1,9 +1,11 @@
-name: Build
+name: Java CI with Maven
 
 on:
+  # When new code is merged
   push:
     branches:
       - main
+      - develop
     paths-ignore:
       - "**/README.md"
       - "**/CONTRIBUTING.md"
@@ -11,7 +13,11 @@ on:
       - '**/CODE_OF_CONDUCT.md'
       - "**/LICENSE"
       - "**/CODEOWNERS"
+  # When user pull request
   pull_request:
+    branches:
+      - main
+      - develop
     types: [opened, synchronize, reopened]
 
 concurrency:
@@ -22,7 +28,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -53,7 +59,7 @@ jobs:
     needs:
         - build
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
