@@ -69,6 +69,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-output
+          path: target/
 
       - name: Test with Maven
         run: mvn -T 1C test-compile test --file pom.xml
