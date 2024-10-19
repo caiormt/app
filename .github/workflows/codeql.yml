@@ -19,8 +19,6 @@ on:
       - main
       - develop
     types: [opened, synchronize, reopened]
-  schedule:
-    - cron: '0 0 * * 5'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -28,7 +26,7 @@ concurrency:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
 
     permissions:
@@ -48,13 +46,13 @@ jobs:
         with:
           fetch-depth: 0
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
 
-    - name: Test with Maven
-      run: ./mvnw -T 1C clean test --file pom.xml
+      - name: Test with Maven
+        run: ./mvnw -T 1C clean test --file pom.xml
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
