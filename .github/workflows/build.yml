@@ -35,10 +35,10 @@ jobs:
           cache: "maven"
 
       - name: Check Style Guide
-        run: mvn -T 1C spotless:check
+        run: ./mvnw -T 1C spotless:check
 
       - name: Compile with Maven
-        run: mvn -T 1C clean generate-sources compile --file pom.xml
+        run: ./mvnw -T 1C clean generate-sources compile --file pom.xml
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -72,4 +72,4 @@ jobs:
           path: target/
 
       - name: Test with Maven
-        run: mvn -T 1C test-compile test --file pom.xml
+        run: ./mvnw -T 1C test-compile test --file pom.xml
