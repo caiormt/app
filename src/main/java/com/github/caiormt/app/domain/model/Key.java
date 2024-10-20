@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import com.github.caiormt.app.domain.error.KeyError;
+
 @Getter
 @ToString
 @EqualsAndHashCode
@@ -26,11 +28,11 @@ public final class Key {
 
   public Key(final Type type, final String value) {
     if (Objects.isNull(type))
-      throw new RuntimeException("Key Type cannot be null");
+      throw new KeyError("Key Type cannot be null");
     if (Objects.isNull(value))
-      throw new RuntimeException("Key Value cannot be null");
+      throw new KeyError("Key Value cannot be null");
     if (StringUtils.length(value) > MAX_LENGTH)
-      throw new RuntimeException("Key Value length must be less than or equal 77");
+      throw new KeyError("Key Value length must be less than or equal 77");
 
     this.type = type;
     this.value = value;
