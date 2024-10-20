@@ -7,16 +7,20 @@ import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.constraints.StringLength;
 
+import com.github.caiormt.app.domain.error.KeyError;
+
 class KeyTest {
 
   @Example
   void shouldRejectCreationWhenNullType() {
-    assertThrows(RuntimeException.class, () -> new Key(null, ""));
+    final KeyError error = assertThrows(KeyError.class, () -> new Key(null, ""));
+    assertEquals("Key Type cannot be null", error.getMessage());
   }
 
   @Property
   void shouldRejectCreationWhenNullValue(@ForAll final Key.Type type) {
-    assertThrows(RuntimeException.class, () -> new Key(type, null));
+    final KeyError error = assertThrows(KeyError.class, () -> new Key(type, null));
+    assertEquals("Key Value cannot be null", error.getMessage());
   }
 
   @Property
@@ -24,13 +28,14 @@ class KeyTest {
       @ForAll final Key.Type type,
       @ForAll @StringLength(min = 78) final String value) {
 
-    assertThrows(RuntimeException.class, () -> new Key(type, value));
+    final KeyError error = assertThrows(KeyError.class, () -> new Key(type, value));
+    assertEquals("Key Value length must be less than or equal 77", error.getMessage());
   }
 
   @Property
   void shouldAcceptCreation(@ForAll final Key.Type type, @ForAll @StringLength(max = 77) final String value) {
     final Key key = assertDoesNotThrow(() -> new Key(type, value));
-    assertEquals(key.type(), type);
-    assertEquals(key.value(), value);
+    assertEquals(type, key.type());
+    assertEquals(value, key.value());
   }
 }
