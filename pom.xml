@@ -50,6 +50,9 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<jqwik.version>1.9.1</jqwik.version>
+		<jqwik-spring.version>0.12.0</jqwik-spring.version>
+
 		<spring-cloud-contract-plugin.version>4.1.4</spring-cloud-contract-plugin.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<spotless.version>2.43.0</spotless.version>
@@ -147,6 +150,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Misc -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
 		<!-- Runtime Scope -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -174,6 +183,18 @@
 		</dependency>
 
 		<!-- Test Scope -->
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik</artifactId>
+			<version>${jqwik.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik-spring</artifactId>
+			<version>${jqwik-spring.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
