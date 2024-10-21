@@ -90,16 +90,27 @@ public final class Key {
   }
 
   public Key(final Type type, final String value) {
+    validateType(type);
+    validateValue(value);
+    validateCoherence(type, value);
+    this.type = type;
+    this.value = value;
+  }
+
+  private static void validateType(final Type type) {
     if (Objects.isNull(type))
       throw new KeyError("Key Type cannot be null");
+  }
+
+  private static void validateValue(final String value) {
     if (Objects.isNull(value))
       throw new KeyError("Key Value cannot be null");
     if (StringUtils.length(value) > MAX_LENGTH)
       throw new KeyError("Key Value length must be less than or equal 77");
+  }
+
+  private static void validateCoherence(final Type type, final String value) {
     if (!type.accepts(value))
       throw new KeyError(type.rejectionMessage());
-
-    this.type = type;
-    this.value = value;
   }
 }
