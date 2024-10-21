@@ -6,13 +6,13 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.github.caiormt.app.domain.error.KeyError;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import com.github.caiormt.app.domain.error.KeyError;
 
 @Getter
 @ToString

@@ -3,7 +3,6 @@ package com.github.caiormt.app.suppliers;
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.ArbitrarySupplier;
-import net.jqwik.api.Combinators;
 
 public class CNPJs implements ArbitrarySupplier<String> {
 
