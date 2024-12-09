@@ -50,7 +50,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<spring-cloud-contract-plugin.version>4.1.4</spring-cloud-contract-plugin.version>
+		<spring-cloud-contract-plugin.version>4.2.0</spring-cloud-contract-plugin.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<spotless.version>2.43.0</spotless.version>
 
